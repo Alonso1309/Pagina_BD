@@ -8,28 +8,7 @@
 
 <body>
 	 
-	<?php
-		/* Conexion pruebas inicio php*/
-
-		$usuario = "Alonso";
- 		$contrasena = "Resident";  
- 		$servidor = "localhost";
-		$basededatos = "Productos";
-		
-
-		$conexion = mysqli_connect( $servidor, $usuario, "Resident")or die ("No se ha podido conectar al servidor de Base de datos");
- 
- 		$db = mysqli_select_db( $conexion, $basededatos )  or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
-
-		/* Conexion prueba final*/	
-
-		/*consulta inicio*/
-		$consulta = "SELECT * FROM  Productos";
-		$resultado = mysqli_query( $conexion, $consulta )or die ( "Algo ha ido mal en la consulta a la base de datos");
-		/*consulta final*/
-	?>
-
-	<div id="div1" >
+		<div id="div1" >
 		<div id="div2">
 
 			<div id="nav_wrapper">
@@ -55,7 +34,48 @@
 <div id="div3"><h1>Bienvenido</h1>
 	<h1>Escuelita Magica</h1><p>Por Excelencia Academica</p>
 	<p>Valor y Responsabilidad Social</p>
+
+	<?php
+		/* Conexion pruebas inicio php*/
+
+		$usuario = "Alonso";
+ 		$contrasena = "Resident";  
+ 		$servidor = "localhost";
+		$basededatos = "Productos";
+		
+
+		$conexion = mysqli_connect( $servidor, $usuario, "Resident")or die ("No se ha podido conectar al servidor de Base de datos");
+ 
+ 		$db = mysqli_select_db( $conexion, $basededatos )  or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+
+		/* Conexion prueba final*/	
+
+		/*consulta inicio*/
+		$consulta = "SELECT * FROM  Productos";
+		$resultado = mysqli_query( $conexion, $consulta )or die ( "Algo ha ido mal en la consulta a la base de datos");
+		
+		echo "<table borde='2'>";
+		echo "<tr>";
+		echo "<th>ID<th>";
+		echo "<th>MARCA<th>";
+		echo "<th>PRECIO<th>";
+		echo "</tr>";
+
+		while ($columna = mysqli_fetch_array( $resultado ))
+			{
+				echo "<tr>";
+				echo "<td>" . $columna['ID'] . "</td><td>" . $columna['Marca'] . "</td><td>" . $columna['Precio'] . "</td>";
+				echo "</tr>";
+			}
+
+
+		/*consulta final*/
+
+	?>
+	
 </div>
+
+	
 
 	</div>
 </body>
