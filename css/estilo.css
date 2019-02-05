@@ -1,0 +1,50 @@
+body {margin:0;}
+
+h1 {
+    color: black;
+    word-spacing: 8px;
+    line-height: 0.8;
+}
+
+h2 {
+    line-height: 0.3;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 20px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #4CAF50;
+}
+
+.active {
+    background-color: #333;
+}
+
+.active2 {
+    background-color:  #4CAF50;
+}
+
+
+  </style>
