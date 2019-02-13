@@ -23,7 +23,7 @@
 						<ul>
 							<li><a href="#" class="active1">Galeria</a></li>
 							<li><a href="#">Horarios</a></li>
-							<li><a href="#">Iniciar Sesion</a></li>				
+							<li><a href="login.php">Iniciar Sesion</a></li>				
 						</ul>
 					</li>
 				</ul>
@@ -35,7 +35,7 @@
 
     <center><h1>PROPIETARIO</h1></center>
 
-    <form method="POST" action="index.php" >
+    <form method="POST" action="index.php?action=submit" >
 
     <div class="form-group">
       <label for="ID">ID</label>
