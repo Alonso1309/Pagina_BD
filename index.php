@@ -29,7 +29,7 @@
 		<div class="col-md-4">
 		<center><h1>PROPIETARIO</h1></center>
 
-		<form method="POST" action="index.php?action='submit'">
+		<form method="POST" action="index.php?action=submit">
 			<div class="form-group">
 				<label for="ID">ID</label>
 				<input type="text" name="id" class="form-control" id="id">
