@@ -62,10 +62,11 @@
 		error_reporting(E_ALL);
 
 		include("BD.php");
+		
 		/**
 		 * CRUD (Create, Read, Update, Delete)
 		 */
-
+			//Desde aqui se movieron los procesos a procesos.php
 		// Create
 		if (isset($_POST['create'])) {
 			// importante: convertir a entero con (int), previene sql injection
@@ -141,7 +142,7 @@
 		// cerrar conexion
 		if ($_GET['action'] == 'submit') {
 			mysqli_close($conexion);
-		}
+		}else{echo "Error al cerrar la conexion";}
 		?>
 			</div>
 		</div>
