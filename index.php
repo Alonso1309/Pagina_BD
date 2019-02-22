@@ -29,7 +29,8 @@
 		<div class="col-md-4">
 		<center><h1>PROPIETARIO</h1></center>
 
-		<form method="POST" action="procesos.php?action=submit">
+
+		<form  action="procesos.php?action=submit" method="POST">
 			<div class="form-group">
 				<label for="ID">ID</label>
 				<input type="text" name="id" class="form-control" id="id">
@@ -62,6 +63,8 @@
 		error_reporting(E_ALL);
 
 		include("BD.php");
+		include("procesos.php");
+
 		
 		/**
 		 * CRUD (Create, Read, Update, Delete)
