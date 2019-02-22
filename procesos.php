@@ -1,87 +1,100 @@
 <?php
-	include("BD.php");
-	
-	if(isset($_POST['id']) && !empty($_POST['id']) &&
-		isset($_POST['marca']) && !empty($_POST['marca']) &&
-		isset($_POST['precio']) && !empty($_POST['precio']) &&
-		isset($_POST['unidades']) && !empty($_POST['unidades']) )
+include("BD.php");
 
-	{
+function vaildarDatos () {
+	$datos = new StdClass();
+	$datos->id = isset($_POST['id']) ? (int)$_POST['id'] : '';
+	$datos->marca = isset($_POST['marca']) ? $_POST['marca'] : '';
+	$datos->precio = isset($_POST['precio']) ? $_POST['precio'] : '';
+	$datos->unidades = isset($_POST['unidades']) ? $_POST['unidades'] : '';
 
-		// Create
-		if (isset($_POST['create'])) {
-			// importante: convertir a entero con (int), previene sql injection
-			$id = (int)$_POST['id'];
-			$marca = $_POST['marca'];
-			$precio = $_POST['precio'];
-			$unidades = $_POST['unidades'];
+	return $datos;
+};
 
-			if ($id=="" || $marca=="" || $precio=="" || $unidades=="") {
-				echo "Llene todos los espacios";
-			} else {
-				if (!mysqli_query($conexion, "INSERT INTO productos (id, marca, precio, unidades) values ('$id', '$marca', '$precio', '$unidades')")) {
-					echo("Hubo un error: ".mysqli_error($conexion));
-				} else {
-					echo "Se ha agredado correctamente el registro";
-				}
-			}
-		}
+$datos = vaildarDatos();
 
-		// Read
-		if (isset($_POST['read'])) {
-			// importante: convertir a entero con (int), previene sql injection
-			$id = (int)$_POST['id'];
-			$marca = $_POST['marca'];
-			$precio = $_POST['precio'];
-			$unidades = $_POST['unidades'];
-
-			if ($id=="") {
-				echo "Se debe de colocar el ID";
-			} else {
-				$resultados = mysqli_query($conexion, "SELECT * FROM productos WHERE id = ".$id);
-
-				while ($consulta = mysqli_fetch_array($resultados)) {
-					echo $consulta['id']."<br>";
-					echo $consulta['marca']."<br>";
-					echo $consulta['precio']."<br>";
-					echo $consulta['unidades']."<br>";
-				}
-			}
-		}
-
-		// Update
-		if (isset($_POST['update'])) {
-			// importante: convertir a entero con (int), previene sql injection
-			$id = (int)$_POST['id'];
-			$marca = $_POST['marca'];
-			$precio = $_POST['precio'];
-			$unidades = $_POST['unidades'];
-			if ($id=="" || $marca=="" || $precio=="" || $unidades=="") {
-				echo "Llene todos los espacios";
-			} else {
-				if (!mysqli_query($conexion, "UPDATE productos SET marca='$marca', precio='$precio', unidades='$unidades' WHERE id='$id'")) {
-					echo "Error: ".mysqli_error($conexion);
-				} else {
-					echo "Se ha Actualizado correctamente";
-				} 
-			}
-		}
-
-		if (isset($_POST['delete'])) {
-			$id = (int)$_POST['id'];
-			if ($id=="") {
-				echo "El campo ID es obligatorio";
-			} else {
-				if (!mysqli_query($conexion, "DELETE FROM productos WHERE id = '$id'")) {
-					echo "Error: ".mysqli_error($conexion);
-				} else {
-					echo "Se ha eliminado el registro";
-				}
-			}
-		}
+$create = function () use ($conexion, $datos) {
+	if ($datos->marca == "" || $datos->precio == "" || $datos->unidades == "") {
+		return "Llene todos los campos";
 	}
 
+	if (!mysqli_query($conexion, "INSERT INTO productos (marca, precio, unidades) values ('$datos->marca', '$datos->precio', '$datos->unidades')")) {
+		return "Hubo un error: ".mysqli_error($conexion);
+	}
 
+	return "Se ha agredado correctamente el registro";
+};
 
+$read = function () use ($conexion, $datos) {
+	if ($datos->id <= 0) {
+		return "Se requiere el ID";
+	}
 
+	$resultado = mysqli_query($conexion, "SELECT * FROM productos WHERE id = ".$datos->id);
+	if (!$resultado) {
+		return "Error: ".mysqli_error($conexion);
+	}
+	$registro = mysqli_fetch_assoc($resultado);
+
+	return $registro;
+};
+
+$update = function () use ($conexion, $datos) {
+	if ($datos->id <= 0 || $datos->marca == "" || $datos->precio == "" || $datos->unidades == "") {
+		return "Llene todos los campos";
+	}
+
+	if (!mysqli_query($conexion, "UPDATE productos SET marca='$datos->marca', precio='$datos->precio', unidades='$datos->unidades' WHERE id='$datos->id'")) {
+		return "Error: ".mysqli_error($conexion);
+	} 
+	
+	return "Se ha Actualizado correctamente";
+};
+
+$delete = function () use ($conexion, $datos) {
+	if ($datos->id <= 0) {
+		return "Se requiere el ID";
+	}
+
+	if (!mysqli_query($conexion, "DELETE FROM productos WHERE id = '$datos->id'")) {
+		return "Error: ".mysqli_error($conexion);
+	}
+	
+	return "Se ha eliminado el registro";
+};
+
+$all = function () use ($conexion) {
+	$consulta = mysqli_query($conexion, "SELECT * FROM productos ORDER BY id");
+	if (!$consulta) {
+		return "Error: ".mysqli_error($conexion);
+	}
+
+	$registros = array();
+
+	while($resultado = mysqli_fetch_assoc($consulta)) {
+		$registros[] = $resultado;
+	}
+	return $registros;
+};
+
+switch ($_REQUEST['action']) {
+	case 'Registrar':
+		$respuesta = $create();
+		break;
+	case 'Actualizar':
+		$respuesta = $update();
+		break;
+	case 'Consultar':
+		$respuesta = $read();
+		break;
+	case 'Eliminar':
+		$respuesta = $delete();
+		break;
+	case 'all':
+		$respuesta = $all();
+		break;
+	default:
+		$respuesta = '';
+		break;
+}	
 ?>

@@ -1,3 +1,7 @@
+<?php
+error_reporting(E_ALL);
+include("procesos.php");
+?>
 <!DOCTYPE html> 
 <html>
 	<head>
@@ -27,54 +31,72 @@
 			</div>
 		
 		<div class="col-md-4">
-		<center><h1>PROPIETARIO</h1></center>
-
-		<form method="POST" action="procesos.php?action=submit">
-			<div class="form-group">
-				<label for="ID">ID</label>
-				<input type="text" name="id" class="form-control" id="id">
-			</div>
-			<br>
-			<div class="form-group">
-				<label for="marca">Marca</label>
-				<input type="text" name="marca" class="form-control" id="marca" >
-			</div>
-			<br>
-			<div class="form-group">
-				<label for="precio">Precio</label>
-				<input type="text" name="precio" class="form-control" id="precio">
-			</div>
-			<br>
+			<center><h1>PROPIETARIO, usando versión <?=phpversion()?> de PHP</h1></center>
+			<a href="<?=$_SERVER['PHP_SELF']?>?action=all">Ver todos</a>
+			<form method="POST" action="<?=$_SERVER['PHP_SELF']?>?action=submit">
 				<div class="form-group">
-				<label for="unidades">Unidades</label>
-				<input type="text" name="unidades" class="form-control" id="unidades">
-			</div>
-			<br>
-			<center>
-				<input type="submit" value="Registrar" class="btn btn-success" name="create">
-				<input type="submit" value="Consultar" class="btn btn-primary" name="read">
-				<input type="submit" value="Actualizar" class="btn btn-info" name="update">
-				<input type="submit" value="Eliminar" class="btn btn-danger" name="delete">
-			</center>
-
-		</form>
-		<?php
-		error_reporting(E_ALL);
-
-		include("BD.php");
-		
-		/**
-		 * CRUD (Create, Read, Update, Delete)
-		 */
-			//Desde aqui se movieron los procesos a procesos.php
-		
-
-		// cerrar conexion
-		if ($_GET['action'] == 'submit') {
-			mysqli_close($conexion);
-		}else{echo "Error al cerrar la conexion";}
-		?>
+					<label for="ID">ID</label>
+					<input type="text" name="id" class="form-control" id="id">
+				</div>
+				<br>
+				<div class="form-group">
+					<label for="marca">Marca</label>
+					<input type="text" name="marca" class="form-control" id="marca" >
+				</div>
+				<br>
+				<div class="form-group">
+					<label for="precio">Precio</label>
+					<input type="text" name="precio" class="form-control" id="precio">
+				</div>
+				<br>
+					<div class="form-group">
+					<label for="unidades">Unidades</label>
+					<input type="text" name="unidades" class="form-control" id="unidades">
+				</div>
+				<br>
+				<center>
+					<input type="submit" value="Registrar" class="btn btn-success" name="action">
+					<input type="submit" value="Consultar" class="btn btn-primary" name="action">
+					<input type="submit" value="Actualizar" class="btn btn-info" name="action">
+					<input type="submit" value="Eliminar" class="btn btn-danger" name="action">
+				</center>
+			</form>
+			<? if (is_string($respuesta)) {?>
+				<h3><?=$respuesta?></h3>
+			<? }?>
+			<? if (is_array($respuesta)&& $_POST['action'] == 'Consultar') {?>
+				<ul>
+					<? foreach ($respuesta as $campo => $valor) {?>
+						<li><?=$campo?>: <?=$valor?></li>
+					<? }?>
+				</ul>
+			<? }?>
+			<? if (is_array($respuesta) && $_GET['action'] == 'all') {?>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>marca</th>
+							<th>precio</th>
+							<th>unidades</th>
+						</tr>
+					</thead>
+					<tbody>
+						<? foreach ($respuesta as $registro) {?>
+							<tr>
+								<? foreach ($registro as $valor) {?> 
+									<td><?=$valor?></td>
+								<? }?>
+							</tr>
+						<? }?>
+					</tbody>
+				</table>
+			<? }?>
 			</div>
 		</div>
 	</body>
 </html>
+<? // cerrar conexion
+if ($_GET['action'] == 'submit') {
+	mysqli_close($conexion);
+}?>
