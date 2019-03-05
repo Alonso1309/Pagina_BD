@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_NOTICE);
 include("procesos.php");
 ?>
 <!DOCTYPE html> 
@@ -31,59 +31,8 @@ include("procesos.php");
 			</div>
 		
 		<div class="col-md-4">
-<<<<<<< HEAD
-		<center><h1>PROPIETARIO</h1></center>
-
-
-		<form  action="procesos.php?action=submit" method="POST">
-			<div class="form-group">
-				<label for="ID">ID</label>
-				<input type="text" name="id" class="form-control" id="id">
-			</div>
-			<br>
-			<div class="form-group">
-				<label for="marca">Marca</label>
-				<input type="text" name="marca" class="form-control" id="marca" >
-			</div>
-			<br>
-			<div class="form-group">
-				<label for="precio">Precio</label>
-				<input type="text" name="precio" class="form-control" id="precio">
-			</div>
-			<br>
-				<div class="form-group">
-				<label for="unidades">Unidades</label>
-				<input type="text" name="unidades" class="form-control" id="unidades">
-			</div>
-			<br>
-			<center>
-				<input type="submit" value="Registrar" class="btn btn-success" name="create">
-				<input type="submit" value="Consultar" class="btn btn-primary" name="read">
-				<input type="submit" value="Actualizar" class="btn btn-info" name="update">
-				<input type="submit" value="Eliminar" class="btn btn-danger" name="delete">
-			</center>
-
-		</form>
-		<?php
-		error_reporting(E_ALL);
-
-		include("BD.php");
-		include("procesos.php");
-
-		
-		/**
-		 * CRUD (Create, Read, Update, Delete)
-		 */
-			//Desde aqui se movieron los procesos a procesos.php
-		
-
-		// cerrar conexion
-		if ($_GET['action'] == 'submit') {
-			mysqli_close($conexion);
-		}else{echo "Error al cerrar la conexion";}
-		?>
-=======
-			<center><h1>PROPIETARIO, usando versión <?=phpversion()?> de PHP</h1></center>
+<br>
+	<center><h1>PROPIETARIO, usando versión <?=phpversion()?> de PHP</h1></center>
 			<a href="<?=$_SERVER['PHP_SELF']?>?action=all">Ver todos</a>
 			<form method="POST" action="<?=$_SERVER['PHP_SELF']?>?action=submit">
 				<div class="form-group">
@@ -113,6 +62,7 @@ include("procesos.php");
 					<input type="submit" value="Eliminar" class="btn btn-danger" name="action">
 				</center>
 			</form>
+			
 			<? if (is_string($respuesta)) {?>
 				<h3><?=$respuesta?></h3>
 			<? }?>
@@ -144,7 +94,7 @@ include("procesos.php");
 					</tbody>
 				</table>
 			<? }?>
->>>>>>> origin/master
+
 			</div>
 		</div>
 	</body>

@@ -74,7 +74,7 @@ $all = function () use ($conexion) {
 	while($resultado = mysqli_fetch_assoc($consulta)) {
 		$registros[] = $resultado;
 	}
-	return $registros;
+	return $registros; 
 };
 
 switch ($_REQUEST['action']) {
