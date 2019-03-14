@@ -30,7 +30,7 @@ $read = function () use ($conexion, $datos) {
 		return "Se requiere el ID";
 	}
 
-	$resultado = mysqli_query($conexion, "SELECT * FROM productos WHERE id = ".$datos->id);
+	$resultado = mysqli_query($conexion, "SELECT * FROM productos WHERE ID = ".$datos->id);
 	if (!$resultado) {
 		return "Error: ".mysqli_error($conexion);
 	}
@@ -44,7 +44,7 @@ $update = function () use ($conexion, $datos) {
 		return "Llene todos los campos";
 	}
 
-	if (!mysqli_query($conexion, "UPDATE productos SET marca='$datos->marca', precio='$datos->precio', unidades='$datos->unidades' WHERE id='$datos->id'")) {
+	if (!mysqli_query($conexion, "UPDATE productos SET marca='$datos->marca', precio='$datos->precio', unidades='$datos->unidades' WHERE ID='$datos->id'")) {
 		return "Error: ".mysqli_error($conexion);
 	} 
 	
@@ -56,7 +56,7 @@ $delete = function () use ($conexion, $datos) {
 		return "Se requiere el ID";
 	}
 
-	if (!mysqli_query($conexion, "DELETE FROM productos WHERE id = '$datos->id'")) {
+	if (!mysqli_query($conexion, "DELETE FROM productos WHERE ID = '$datos->id'")) {
 		return "Error: ".mysqli_error($conexion);
 	}
 	
@@ -64,7 +64,7 @@ $delete = function () use ($conexion, $datos) {
 };
 
 $all = function () use ($conexion) {
-	$consulta = mysqli_query($conexion, "SELECT * FROM productos ORDER BY id");
+	$consulta = mysqli_query($conexion, "SELECT * FROM productos ORDER BY ID");
 	if (!$consulta) {
 		return "Error: ".mysqli_error($conexion);
 	}
