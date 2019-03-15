@@ -69,28 +69,28 @@ include("procesos.php");
 			<? if (is_array($respuesta)&& $_POST['action'] == 'Consultar') {?>
 				<ul>
 					<? foreach ($respuesta as $campo => $valor) {?>
-						<li><?=$campo?>: <?=$valor?></li>
-					<? }?>
+						<li><?=$campo?>. <?=$valor?></li>
+					<? }var_dump($respuesta,$campo,$valor);?>
 				</ul>
 			<? }?>
 			<? if (is_array($respuesta) && $_GET['action'] == 'all') {?>
-				<table class="table table-bordered">
-					<thead>
+				<table class="table table-bordered" ></table>
 						<tr>
 							<th>id</th>
 							<th>marca</th>
 							<th>precio</th>
 							<th>unidades</th>
 						</tr>
+							
 					</thead>
 					<tbody>
 						<? foreach ($respuesta as $registro) {?>
 							<tr>
 								<? foreach ($registro as $valor) {?> 
-									<td><?=$valor?></td>
+									<td> <?=$valor?></td>
 								<? }?>
 							</tr>
-						<? }?>
+						<? }var_dump($respuesta,$campo,$valor);?>
 					</tbody>
 				</table>
 			<? }?>

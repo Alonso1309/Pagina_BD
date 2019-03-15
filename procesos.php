@@ -33,9 +33,15 @@ $read = function () use ($conexion, $datos) {
 	$resultado = mysqli_query($conexion, "SELECT * FROM productos WHERE ID = ".$datos->id);
 	if (!$resultado) {
 		return "Error: ".mysqli_error($conexion);
+		if ($datos->id <> $resultados  ){
+			return "No se encontro ID en el resgistro";
+		}
+		
 	}
+
 	$registro = mysqli_fetch_assoc($resultado);
 
+	echo $registro;
 	return $registro;
 };
 
