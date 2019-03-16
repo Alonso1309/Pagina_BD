@@ -70,7 +70,7 @@ include("procesos.php");
 				<ul>
 					<? foreach ($respuesta as $campo => $valor) {?>
 						<li><?=$campo?>. <?=$valor?></li>
-					<? }var_dump($respuesta,$campo,$valor);?>
+					<? }?>
 				</ul>
 			<? }?>
 			<? if (is_array($respuesta) && $_GET['action'] == 'all') {?>
@@ -90,7 +90,7 @@ include("procesos.php");
 									<td> <?=$valor?></td>
 								<? }?>
 							</tr>
-						<? }var_dump($respuesta,$campo,$valor);?>
+						<? }?>
 					</tbody>
 				</table>
 			<? }?>

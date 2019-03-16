@@ -34,14 +34,14 @@ $read = function () use ($conexion, $datos) {
 	if (!$resultado) {
 		return "Error: ".mysqli_error($conexion);
 		if ($datos->id <> $resultados  ){
-			return "No se encontro ID en el resgistro";
+			return "No se encontro ID en el registro";
 		}
 		
 	}
 
 	$registro = mysqli_fetch_assoc($resultado);
 
-	echo $registro;
+	
 	return $registro;
 };
 
