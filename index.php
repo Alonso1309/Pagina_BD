@@ -1,6 +1,9 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE);
-include("procesos.php");
+// include("procesos.php");
+include("classes/Proceso.php");
+$proceso = new Proceso(__DIR__);
+$respuesta = $proceso->parseRequest();
 ?>
 <!DOCTYPE html> 
 <html>
@@ -32,7 +35,7 @@ include("procesos.php");
 		
 		<div class="col-md-4">
 <br>
-	<center><h1>PROPIETARIO, usando versión <?=phpversion()?> de PHP</h1></center>
+	<h1>PHP -V: <?=phpversion()?> de PHP</h1>
 			<a href="<?=$_SERVER['PHP_SELF']?>?action=all">Ver todos</a>
 			<form method="POST" action="<?=$_SERVER['PHP_SELF']?>?action=submit">
 				<div class="form-group">
@@ -55,12 +58,11 @@ include("procesos.php");
 					<input type="text" name="unidades" class="form-control" id="unidades">
 				</div>
 				<br>
-				<center>
 					<input type="submit" value="Registrar" class="btn btn-success" name="action">
 					<input type="submit" value="Consultar" class="btn btn-primary" name="action">
 					<input type="submit" value="Actualizar" class="btn btn-info" name="action">
 					<input type="submit" value="Eliminar" class="btn btn-danger" name="action">
-				</center>
+
 			</form>
 			
 			<? if (is_string($respuesta)) {?>
@@ -74,32 +76,27 @@ include("procesos.php");
 				</ul>
 			<? }?>
 			<? if (is_array($respuesta) && $_GET['action'] == 'all') {?>
-				<table class="table table-bordered" ></table>
-						<tr>
-							<th>id</th>
-							<th>marca</th>
-							<th>precio</th>
-							<th>unidades</th>
-						</tr>
-							
-					</thead>
-					<tbody>
-						<? foreach ($respuesta as $registro) {?>
-							<tr>
-								<? foreach ($registro as $valor) {?> 
-									<td> <?=$valor?></td>
-								<? }?>
-							</tr>
-						<? }?>
-					</tbody>
+				<table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>marca</th>
+                            <th>precio</th>
+                            <th>unidades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <? foreach ($respuesta as $registro) {?>
+                            <tr>
+                                <? foreach ($registro as $valor) {?>
+                                    <td> <?=$valor?></td>
+                                <? }?>
+                            </tr>
+                        <? }?>
+                    </tbody>
 				</table>
 			<? }?>
-
 			</div>
 		</div>
 	</body>
 </html>
-<? // cerrar conexion
-if ($_GET['action'] == 'submit') {
-	mysqli_close($conexion);
-}?>
