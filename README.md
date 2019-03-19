@@ -22,3 +22,5 @@ CREATE TABLE `productos` (
   `unidades` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+crear archivo log.txt en la carpeta raíz para usar $this->logger para debuguear.
