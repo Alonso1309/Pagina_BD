@@ -11,12 +11,25 @@ class Proceso extends Base {
 
     public function setDatos () {
         $datos = new StdClass();
-        $datos->usuario = isset($_POST['usuario']) ? (int)$_POST['usuarios'] : '';
+        $datos->usuario = isset($_POST['usuario']) ? (int)$_POST['usuario'] : '';
         $datos->password = password_hash((isset($_POST['password']) ? $_POST['password'] : ''),PASSWORD_BCRYPT);
         $datos->Con_password = password_hash((isset($_POST['Con_password']) ? $_POST['Con_password'] : ''),PASSWORD_BCRYPT);
         $this->datos = $datos;
     }   
 
+    public function parseRequest () {
+        switch ($_REQUEST['action']) {
+            case 'Registrar':
+                $respuesta = $this->create();
+                break;
+            default:
+                $respuesta = '';
+                break;
+        }
+
+        return $respuesta;
+    }
+    
     protected function create () {
         $datos = $this->datos;
         if ($datos->usuario == "" || $datos->password == "" || $datos->Con_password == "") {
