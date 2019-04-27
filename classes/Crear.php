@@ -12,10 +12,10 @@ class Proceso extends Base {
     public function setDatos () {
         $datos = new StdClass();
         $datos->usuario = isset($_POST['usuario']) ? (int)$_POST['usuarios'] : '';
-        $datos->password = isset($_POST['password']) ? $_POST['password'] : '';
-        $datos->Con_password = isset($_POST['Con_password']) ? $_POST['Con_password'] : '';
+        $datos->password = password_hash((isset($_POST['password']) ? $_POST['password'] : ''),PASSWORD_BCRYPT);
+        $datos->Con_password = password_hash((isset($_POST['Con_password']) ? $_POST['Con_password'] : ''),PASSWORD_BCRYPT);
         $this->datos = $datos;
-    }
+    }   
 
     protected function create () {
         $datos = $this->datos;
@@ -31,7 +31,7 @@ class Proceso extends Base {
                 ':Con_password' => $datos->Con_password
             ]);
 
-            return "Se ha agredado correctamente el registro";
+            return "Se ha registrado exitosamente";
 
         } catch (PDOException $e) {
             return "Error SQL: ".$e->getMessage();

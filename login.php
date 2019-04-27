@@ -1,6 +1,5 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE);
-// include("procesos.php");
 include("classes/Check.php");
 ?>
 <html>
@@ -37,7 +36,7 @@ include("classes/Check.php");
 							
 							<div style="margin-top:10px" class="form-group">
 								<div class="col-sm-12 controls">
-									<button type="submit" name="action">Iniciar Sesi&oacute;n</a>
+									<button type="submit" value="Enviar" name="action">Iniciar Sesi&oacute;n</a>
 								</div>
 							</div>
 							<br>

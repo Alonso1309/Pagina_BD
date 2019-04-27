@@ -1,13 +1,9 @@
 <?
-require("Base.php");
+require("Base2.php");
 
 class Proceso extends Base {
 
     private $datos;
-
-    /**
-     * Proceso constructor.
-     */
     public function __construct ($basePath) {
         parent::__construct($basePath);
         $this->setDatos();
@@ -27,11 +23,18 @@ class Proceso extends Base {
         }
 
         try {
-            $statement = $this->getPdo()->prepare("SELECT * FROM usuarios WHERE NombreU=:usuario");
+            $statement = $this->getPdo()->prepare("SELECT * FROM usuarios WHERE usuario =:usuario");
             $statement->execute([
                 ':usuario' => $this->datos->id
             ]);
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
+            if (count($registro) > 0 && password_verify($_POST['password'],$registro['password'])){
+                $_SESSION['user_id'] = $registro['id'];
+                header("location: index.php");
+            }else{
+                return "Su usuario o contraseña es incorrecto";
+            }
+
 
             return $registro;
         } catch (PDOException $e) {
