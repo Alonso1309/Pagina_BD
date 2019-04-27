@@ -1,3 +1,8 @@
+<?php
+error_reporting(E_ALL & ~E_NOTICE);
+// include("procesos.php");
+include("classes/Check.php");
+?>
 <html>
 	<head>
 		<title>Login</title>
@@ -16,21 +21,23 @@
 						
 						<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 						
-						<form id="loginform" class="form-horizontal" role="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" autocomplete="off">
+						<!-- Formulario-->
+
+						<form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" autocomplete="off">
 							
 							<div style="margin-bottom: 25px" class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								<input id="usuario" type="text" class="form-control" name="usuario" value="" placeholder="usuario o email" required>                                        
+								<input id="usuario" type="text" class="form-control" name="usuario" value="" placeholder="Usuario" required>                                        
 							</div>
 							
 							<div style="margin-bottom: 25px" class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-								<input id="password" type="password" class="form-control" name="password" placeholder="password" required>
+								<input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 							</div>
 							
 							<div style="margin-top:10px" class="form-group">
 								<div class="col-sm-12 controls">
-									<button id="btn-login" type="submit" class="btn btn-success">Iniciar Sesi&oacute;n</a>
+									<button type="submit" name="action">Iniciar Sesi&oacute;n</a>
 								</div>
 							</div>
 							<br>
